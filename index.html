@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Próximas Guaguas</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #2C2C2C;
+            color: white;
+        }
+        .card {
+            border-radius: 15px;
+            background-color: #333;
+            border: none;
+        }
+        .card-header {
+            background-color: #444;
+            border-bottom: none;
+        }
+        .bus-item {
+            padding: 15px;
+            margin: 10px 0;
+            background-color: #4A4A4A;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card text-center">
+                    <div class="card-header">
+                        <h1>Próximas Llegadas de Guaguas</h1>
+                    </div>
+                    <div class="card-body">
+                        <div id="bus-info" class="row"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JavaScript para obtener y mostrar los datos de las guaguas -->
+    <script>
+        const busInfoContainer = document.getElementById('bus-info');
+
+        // URL de la API de las guaguas (esto lo debes reemplazar por la URL correcta de tu JSON)
+        const apiUrl = 'http://sat2globalapp.com:44040/App_MiLineaGlobal-Project-context-root/jersey/paradas/70011/vehiculoscercanos';
+
+        // Función para obtener y mostrar las próximas guaguas
+        function obtenerGuaguas() {
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    mostrarGuaguas(data);
+                })
+                .catch(error => {
+                    console.error('Error al obtener los datos:', error);
+                });
+        }
+
+        // Función para mostrar las guaguas en el HTML
+        function mostrarGuaguas(guaguas) {
+            guaguas.forEach(guagua => {
+                const busItem = document.createElement('div');
+                busItem.classList.add('col-md-4', 'bus-item');
+
+                busItem.innerHTML = `
+                    <h3>${guagua.route_name}</h3>
+                    <p><strong>Destino:</strong> ${guagua.destination}</p>
+                    <p><strong>Tiempo estimado:</strong> ${guagua.arrival_time} minutos</p>
+                `;
+
+                busInfoContainer.appendChild(busItem);
+            });
+        }
+
+        // Llamamos a la función para obtener y mostrar las guaguas cuando cargue la página
+        obtenerGuaguas();
+    </script>
+</body>
+</html>
