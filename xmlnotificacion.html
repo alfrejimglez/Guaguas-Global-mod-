@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Convertir JSON a XML</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+
+<script>
+    async function fetchAndConvertToXML() {
+        try {
+            const response = await axios.get('https://cors-url-proxy.glitch.me/proxy?url=http://sat2globalapp.com:44040/App_MiLineaGlobal-Project-context-root/jersey/paradas/175062/vehiculoscercanos');
+            const data = response.data.Respuesta.Vehiculos; 
+    
+            console.log(data); 
+    
+            if (!Array.isArray(data)) {
+                console.error('Los datos no son un array:', data);
+                return;
+            }
+    
+            let xml = '<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>Vehículos Cercanos</title><link>http://sat2globalapp.com</link><description>Vehículos cercanos en tiempo real</description>';
+    
+            data.forEach(item => {
+                xml += `<item><title>${item.NombreLinea}</title><link>http://example.com/vehiculo/${item.IdVehiculo}</link><description>Destino: ${item.Destino}, Hora: ${item.Tiempo}</description></item>`;
+            });
+    
+            xml += '</channel></rss>';
+    
+            const blob = new Blob([xml], { type: 'application/xml' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'vehiculos_cercanos.xml';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        } catch (error) {
+            console.error('Error al obtener los datos:', error);
+        }
+    }
+    
+
+// Llama a la función
+fetchAndConvertToXML();
+</script>
+
+</body>
+</html>
