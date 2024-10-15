@@ -29,7 +29,18 @@
             border-radius: 10px;
             display: flex; 
             justify-content: space-between; 
-            align-items: center; 
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+        .bus-item:hover {
+            background-color: #555;
+        }
+        .bus-item a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
         }
         marquee {
             color: red; 
@@ -55,23 +66,32 @@
                             <input type="text" id="searchInput" placeholder="Buscar..." class="form-control w-25" onkeyup="filterDestinations()">
                         </h2>
                         <div id="bus-info">
-                            <div class="bus-item">
-                                <a href="arnao.html" class="text-white text-decoration-none">Arnao</a> <strong>70011</strong>
-                            </div>
-                            <div class="bus-item">
-                                <a href="cubillo.html" class="text-white text-decoration-none">Cubillo</a> <strong>31024</strong>
-                            </div>
-                            <div class="bus-item">
-                                <a href="laherradura.html" class="text-white text-decoration-none">La Herradura</a> <strong>71052</strong>
-                            </div>
-                            <div class="bus-item">
-                                <a href="mercacentro.html" class="text-white text-decoration-none">Mercacentro</a> <strong>31554</strong>
-                            </div>
-
-
-<div class="bus-item">
-                                <a href="sanborondon.html" class="text-white text-decoration-none">San Borondon</a> <strong>3511</strong>
-                            </div>
+                            <!-- Envolver todo el div bus-item dentro de un enlace -->
+                            <a href="arnao.html">
+                                <div class="bus-item">
+                                    <span>Arnao</span> <strong>70011</strong>
+                                </div>
+                            </a>
+                            <a href="cubillo.html">
+                                <div class="bus-item">
+                                    <span>Cubillo</span> <strong>31024</strong>
+                                </div>
+                            </a>
+                            <a href="laherradura.html">
+                                <div class="bus-item">
+                                    <span>La Herradura</span> <strong>71052</strong>
+                                </div>
+                            </a>
+                            <a href="mercacentro.html">
+                                <div class="bus-item">
+                                    <span>Mercacentro</span> <strong>31554</strong>
+                                </div>
+                            </a>
+                            <a href="sanborondon.html">
+                                <div class="bus-item">
+                                    <span>San Borondon</span> <strong>3511</strong>
+                                </div>
+                            </a>
                         </div>
                         <div id="error-message" class="text-danger mt-3"></div> <!-- Mensaje de error -->
                     </div>
@@ -85,19 +105,4 @@
     <script>
         function filterDestinations() {
             const input = document.getElementById('searchInput').value.toLowerCase();
-            const busItems = document.querySelectorAll('.bus-item');
-
-            busItems.forEach(item => {
-                const title = item.querySelector('a').textContent.toLowerCase();
-                const code = item.querySelector('strong').textContent.toLowerCase();
-
-                if (title.includes(input) || code.includes(input)) {
-                    item.style.display = ''; 
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-        }
-    </script>
-</body>
-</html>
+           ⬤
